@@ -1,9 +1,11 @@
+require 'securerandom'
+
 class Api::V1::TypesController < ApplicationController
   before_action :set_api_v1_type, only: [:show, :update, :destroy]
 
   # GET /api/v1/types
   def index
-    @api_v1_types = Api::V1::Type.all
+    @api_v1_types = Type.all
 
     render json: @api_v1_types
   end
@@ -15,10 +17,13 @@ class Api::V1::TypesController < ApplicationController
 
   # POST /api/v1/types
   def create
-    @api_v1_type = Api::V1::Type.new(api_v1_type_params)
-
+    parameters = api_v1_type_params
+    puts JSON.pretty_generate(parameters.permitted?)
+    puts JSON.pretty_generate(parameters)
+    @api_v1_type = Type.new(parameters)
+    @api_v1_type.id = SecureRandom.uuid
     if @api_v1_type.save
-      render json: @api_v1_type, status: :created, location: @api_v1_type
+      json_response(@api_v1_type, :created)
     else
       render json: @api_v1_type.errors, status: :unprocessable_entity
     end
@@ -39,13 +44,14 @@ class Api::V1::TypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_api_v1_type
-      @api_v1_type = Api::V1::Type.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def api_v1_type_params
-      params.fetch(:api_v1_type, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_api_v1_type
+    @api_v1_type = Type.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def api_v1_type_params
+    params.require(:type).permit(:name)
+  end
 end

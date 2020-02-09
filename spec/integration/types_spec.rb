@@ -16,7 +16,7 @@ describe 'Types API' do
           required: ['name']
       }
 
-      response '201', 'pet created' do
+      response '201', 'type created' do
         let(:type) { {name: 'Hawaiian'} }
         run_test!
       end
