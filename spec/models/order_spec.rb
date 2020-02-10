@@ -16,4 +16,9 @@ RSpec.describe Order, type: :model do
 
   # ensure an order record belongs to a single crust record
   it { should belong_to(:crust) }
+
+  # ensure an order record belongs to a single status record
+  it { should belong_to(:status) }
+
+  it { should validate_presence_of(:slices) }
 end

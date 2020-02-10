@@ -7,5 +7,6 @@ FactoryBot.define do
     association :cheese, factory: :cheese_factory
     association :sauce, factory: :sauce_factory
     association :crust, factory: :crust_factory
+    association :status, factory: :status
   end
 end

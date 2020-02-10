@@ -1,5 +1,5 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :slices
   attribute :type do
     object.type.name
   end
@@ -14,5 +14,8 @@ class OrderSerializer < ActiveModel::Serializer
   end
   attribute :crust do
     object.crust.value
+  end
+  attribute :status do
+    object.status.name
   end
 end
