@@ -25,4 +25,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_003550) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+# Could not dump table "types" because of following StandardError
+#   Unknown type 'uuid' for column 'id'
+
 end

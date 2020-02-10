@@ -5,10 +5,10 @@ RSpec.describe 'Pizza Types API', type: :request do
   let!(:pizza_types) { create_list(:pizza_type, 10) }
   let(:pizza_type_id) { pizza_types.first.id }
 
-  # Test suite for GET /pizza-type
-  describe 'GET /pizza-types' do
+  # Test suite for GET /pizza_type
+  describe 'GET /pizza_type EndPoint' do
     # make HTTP get request before each example
-    before { get '/pizza-types' }
+    before { get '/pizza_type' }
 
     it 'returns pizza types' do
       # Note `json` is a custom helper to parse JSON responses
@@ -21,9 +21,9 @@ RSpec.describe 'Pizza Types API', type: :request do
     end
   end
 
-  # Test suite for GET /pizza-type/:id
-  describe 'GET /pizza-type/:id' do
-    before { get "/pizza-type/#{pizza_type_id}" }
+  # Test suite for GET /pizza_type/:id
+  describe 'GET /pizza-type/:id End Point' do
+    before { get "/pizza_type/#{pizza_type_id}" }
 
     context 'when the record exists' do
       it 'returns the todo' do
@@ -37,25 +37,25 @@ RSpec.describe 'Pizza Types API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:todo_id) { 100 }
+      let(:pizza_type_id) { 100 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find pizza type/)
+        expect(response.body).to match(/Couldn't find PizzaType/)
       end
     end
   end
 
   # Test suite for POST /pizza-type
-  describe 'POST /pizza-types' do
+  describe 'POST /pizza_type EndPoint' do
     # valid payload
     let(:valid_attributes) { {name: 'Hawaiian'} }
 
     context 'when the request is valid' do
-      before { post '/pizza-type', params: valid_attributes }
+      before { post '/pizza_type', params: valid_attributes }
 
       it 'creates a pizza type' do
         expect(json['name']).to eq('Hawaiian')
@@ -67,7 +67,7 @@ RSpec.describe 'Pizza Types API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/pizza-type', params: {} }
+      before { post '/pizza_type', params: {} }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -79,12 +79,12 @@ RSpec.describe 'Pizza Types API', type: :request do
     end
   end
 
-  # Test suite for PUT /pizza-types/:id
-  describe 'PUT /pizza-types/:id' do
+  # Test suite for PUT /pizza_type/:id
+  describe 'PUT /pizza_type/:id End Point' do
     let(:valid_attributes) { {name: 'Brazilian'} }
 
     context 'when the record exists' do
-      before { put "/pizza-types/#{pizza_type_id}", params: valid_attributes }
+      before { put "/pizza_type/#{pizza_type_id}", params: valid_attributes }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -96,9 +96,9 @@ RSpec.describe 'Pizza Types API', type: :request do
     end
   end
 
-  # Test suite for DELETE /pizza-types/:id
-  describe 'DELETE /pizza-types/:id' do
-    before { delete "/pizza-types/#{pizza_type_id}" }
+  # Test suite for DELETE /pizza_type/:id
+  describe 'DELETE /pizza_type/:id EndPoint' do
+    before { delete "/pizza_type/#{pizza_type_id}" }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

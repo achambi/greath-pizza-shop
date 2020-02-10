@@ -4,11 +4,11 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/v1/types":
+  "/pizza_type":
     post:
       summary: Creates a type
       tags:
-      - Types
+      - Pizza Types
       consumes:
       - application/json
       - application/xml
@@ -24,25 +24,36 @@ paths:
           - name
       responses:
         '201':
-          description: pet created
+          description: type created
         '422':
           description: invalid request
-  "/api/v1/types/{id}":
     get:
-      summary: Retrieves a pet
+      summary: Get All pizza types
       tags:
-      - Pets
+      - Pizza Types
+      consumes:
+      - application/json
+      - application/xml
+      responses:
+        '200':
+          description:
+            description: Return all the available pizza types
+  "/pizza_type/{id}":
+    get:
+      summary: Retrieves a pizza type by id
+      tags:
+      - Pizza Types
       produces:
       - application/json
       - application/xml
       parameters:
       - name: id
         in: path
-        type: string
+        type: integer
         required: true
       responses:
         '200':
-          description: name found
+          description: pizza type found
           schema:
             type: object
             properties:

@@ -1,12 +1,9 @@
-# spec/integration/pets_spec.rb
 require 'swagger_helper'
 
-describe 'Types API' do
-
-  path '/api/v1/types' do
-
+describe 'Pizza Types API' do
+  path '/pizza_type' do
     post 'Creates a type' do
-      tags 'Types'
+      tags 'Pizza Types'
       consumes 'application/json', 'application/xml'
       parameter name: :type, in: :body, schema: {
           type: :object,
@@ -28,14 +25,13 @@ describe 'Types API' do
     end
   end
 
-  path '/api/v1/types/{id}' do
-
-    get 'Retrieves a pet' do
-      tags 'Pets'
+  path '/pizza_type/{id}' do
+    get 'Retrieves a pizza type by id' do
+      tags 'Pizza Types'
       produces 'application/json', 'application/xml'
-      parameter name: :id, :in => :path, :type => :string
+      parameter name: :id, :in => :path, :type => :integer
 
-      response '200', 'name found' do
+      response '200', 'pizza type found' do
         schema type: :object,
                properties: {
                    id: {type: :integer},
@@ -48,6 +44,22 @@ describe 'Types API' do
       end
       response '404', 'type not found' do
         let(:id) { 'invalid' }
+        run_test!
+      end
+    end
+  end
+
+  path '/pizza_type' do
+    get 'Get All pizza types' do
+      tags 'Pizza Types'
+      consumes 'application/json', 'application/xml'
+
+      response(200, description: 'Return all the available pizza types') do
+        let!(:pizza_types) do
+          3.times do
+            create(:pizza_type)
+          end
+        end
         run_test!
       end
     end
