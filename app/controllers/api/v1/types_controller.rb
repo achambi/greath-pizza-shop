@@ -17,10 +17,7 @@ class Api::V1::TypesController < ApplicationController
 
   # POST /api/v1/types
   def create
-    parameters = api_v1_type_params
-    puts JSON.pretty_generate(parameters.permitted?)
-    puts JSON.pretty_generate(parameters)
-    @api_v1_type = Type.new(parameters)
+    @api_v1_type = Type.new(api_v1_type_params)
     @api_v1_type.id = SecureRandom.uuid
     if @api_v1_type.save
       json_response(@api_v1_type, :created)
