@@ -10,13 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_044654) do
+ActiveRecord::Schema.define(version: 2020_02_10_064644) do
 
   create_table "options", force: :cascade do |t|
     t.string "category"
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "size_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "type_id"
+    t.integer "cheese_id"
+    t.integer "sauce_id"
+    t.integer "crust_id"
+    t.index ["size_id"], name: "index_orders_on_size_id"
   end
 
   create_table "pizza_types", force: :cascade do |t|
@@ -32,4 +43,9 @@ ActiveRecord::Schema.define(version: 2020_02_10_044654) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "orders", "options", column: "cheese_id"
+  add_foreign_key "orders", "options", column: "crust_id"
+  add_foreign_key "orders", "options", column: "sauce_id"
+  add_foreign_key "orders", "pizza_types", column: "type_id"
+  add_foreign_key "orders", "sizes"
 end
