@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_000935) do
+ActiveRecord::Schema.define(version: 2020_02_10_003550) do
 
   create_table "options", force: :cascade do |t|
     t.string "category"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 2020_02_10_000935) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-# Could not dump table "types" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+  create_table "pizza_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
 end
