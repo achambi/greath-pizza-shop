@@ -20,4 +20,12 @@ Option.create(category: 'Crust', value: 'Thin')
 Option.create(category: 'Crust', value: 'Thick')
 Option.create(category: 'Crust', value: 'Filled with cheese')
 
-p "Created #{Option.count} movies"
+p "Created #{Option.count} options"
+
+Size.destroy_all
+Size.create(name: 'Personal', slices: 1)
+Size.create(name: 'Small', slices: 4)
+Size.create(name: 'Medium', slices: 6)
+Size.create(name: 'Large', slices: 8)
+
+p "Created #{Size.count} sizes"
